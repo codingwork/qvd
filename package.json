@@ -1,6 +1,6 @@
 {
   "name": "qvd",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "A very simple Virtual DOM and diffing aloorithm for mobile fork from virtual-dom.",
   "main": "index.js",
   "directories": {
