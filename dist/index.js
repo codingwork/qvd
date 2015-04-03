@@ -1,3 +1,4 @@
+define(['module'], function (module) {
 var OPERATE = {
   REMOVE: 1,
   INSERT: 2,
@@ -385,3 +386,4 @@ module.exports = {
   diff: diff,
   OPERATE: OPERATE
 };
+})
