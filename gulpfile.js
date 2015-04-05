@@ -1,7 +1,9 @@
 var gulp = require('gulp')
   , map = require('map-stream')
   , maxmin = require('maxmin')
-  , uglify = require('gulp-uglify');
+  , uglify = require('gulp-uglify')
+  , webpack = require('gulp-webpack')
+  , config = require('./webpack.config');
 
 function Size(name) {
   this._name = name;
@@ -31,27 +33,20 @@ Size.prototype.print = function () {
   }, 0);
 }
 
-var size = new Size('qvd');
+var size = new Size('vd');
 
 gulp.task('build', function (done) {
-  gulp.src(['index.js'])
-    .pipe(map(function (file, fn) {
-      file.contents = new Buffer([
-        "define(['module'], function (module) {",
-        file.contents.toString(),
-        '})'
-      ].join('\n'));
-      fn(null, file);
-    }))
+  gulp.src(['vd.js'])
+    .pipe(webpack(config.vd))
     .pipe(size.max())
     .pipe(gulp.dest('./dist'))
-    .on('end', function () {
+    .pipe('end', function () {
       done();
     });
 });
 
 gulp.task('uglify', ['build'], function (done) {
-  gulp.src(['dist/index.js'])
+  gulp.src(['dist/vd.js'])
     .pipe(uglify({
       preserveComments: 'some'
     }))

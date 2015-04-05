@@ -1,11 +1,4 @@
-define(['module'], function (module) {
-var OPERATE = {
-  REMOVE: 1,
-  INSERT: 2,
-  REPLACE: 3,
-  ORDER: 4,
-  PROPS: 5
-};
+var OPERATE = require('./lib/operate');
 
 function isText(node) {
   return node.tag === 'text';
@@ -383,7 +376,5 @@ function diff(a, b) {
 
 module.exports = {
   h: h,
-  diff: diff,
-  OPERATE: OPERATE
+  diff: diff
 };
-})

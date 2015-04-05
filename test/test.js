@@ -1,7 +1,8 @@
 var qvd = require('../')
   , h = qvd.h
   , diff = qvd.diff
-  , OPERATE = qvd.OPERATE;
+  , render = qvd.render
+  , OPERATE = require('../lib/operate');
 
 describe('diff', function () {
   it('should not need any operate for two equal div', function () {
@@ -68,5 +69,22 @@ describe('diff', function () {
     res[0][0].to.should.eql({ removes: [{ from: 1, key: 2 }], inserts: [{ key: 2, to: 0 }] });
     res[1][0].from.should.equal(text1);
     res[1][0].to.should.equal(text2);
+  });
+});
+
+describe('render', function () {
+  it('should render a div which has a p in it', function () {
+    var vd = h('div', { style: { backgroundColor: '#fff' } }, [h('p', null, [h('text', 'hello')])]);
+    render(vd).should.equal('<div style="background-color: #fff;"><p>hello</p></div>')
+  });
+
+  it('should render a input has value', function () {
+    var vd = h('input', { value: 'hello' });
+    render(vd).should.equal('<input value="hello">');
+  });
+
+  it('should render a disabled input', function () {
+    var vd = h('input', { disabled: '' });
+    render(vd).should.equal('<input disabled>');
   });
 });
