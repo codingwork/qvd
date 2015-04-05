@@ -27,7 +27,7 @@ function Jsx(name, jsx) {
   if (jsx) {
     jsxs[name] = new Function('h', jsx);
   } else {
-    var jsx = jsxs[name];
+    jsx = jsxs[name];
     if (!jsx) throw new Error('jsx ' + name + ' not exists.');
     return jsx;
   }
