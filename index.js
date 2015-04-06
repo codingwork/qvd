@@ -1,10 +1,10 @@
 var vd = require('./vd')
-  , render = require('./render');
-  // , patch = require('./patch');
+  , render = require('./render')
+  , patch = require('./patch');
 
 module.exports = {
   diff: vd.diff,
   h: vd.h,
-  render: render
-  // patch: patch
+  render: render,
+  patch: patch
 };

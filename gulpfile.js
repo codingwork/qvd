@@ -33,9 +33,10 @@ Size.prototype.print = function () {
   }, 0);
 }
 
-var size = new Size('vd');
+var size = new Size('vd.js')
+  , allSize = new Size('all.js');
 
-gulp.task('build', function (done) {
+gulp.task('vd-build', function (done) {
   gulp.src(['vd.js'])
     .pipe(webpack(config.vd))
     .pipe(size.max())
@@ -45,7 +46,7 @@ gulp.task('build', function (done) {
     });
 });
 
-gulp.task('uglify', ['build'], function (done) {
+gulp.task('vd-uglify', ['vd-build'], function (done) {
   gulp.src(['dist/vd.js'])
     .pipe(uglify({
       preserveComments: 'some'
@@ -60,4 +61,29 @@ gulp.task('uglify', ['build'], function (done) {
     })
 });
 
-gulp.task('default', ['uglify']);
+gulp.task('all-build', function (done) {
+  gulp.src(['index.js'])
+    .pipe(webpack(config.all))
+    .pipe(allSize.max())
+    .pipe(gulp.dest('./dist'))
+    .on('end', function () {
+      done();
+    });
+});
+
+gulp.task('all-uglify', ['all-build'], function (done) {
+  gulp.src(['dist/all.js'])
+    .pipe(uglify({
+      preserveComments: 'some'
+    }))
+    .pipe(allSize.min(function (path) {
+      return path.replace(/\.js$/, '.min.js');
+    }))
+    .pipe(gulp.dest('./dist'))
+    .on('end', function () {
+      allSize.print();
+      done();
+    })
+});
+
+gulp.task('default', ['vd-uglify', 'all-uglify']);
