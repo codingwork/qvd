@@ -36,14 +36,15 @@ function walk(a, b, patches, index) {
       if (diff) {
         apply.push({
           diff: diff,
+          from: a,
           operate: OPERATE.PROPS
         });
       }
       diffChildren(a, b, patches, apply, index);
     } else {
       apply.push({
-        from: a,
-        to: b,
+        from: b,
+        to: a,
         operate: OPERATE.REPLACE
       });
     }
@@ -54,8 +55,8 @@ function walk(a, b, patches, index) {
         || a.text !== b.text
     ) {
       apply.push({
-        from: a,
-        to: b,
+        from: b,
+        to: a,
         operate: OPERATE.REPLACE
       });
     }
@@ -307,6 +308,7 @@ function diffChildren(a, b, patches, apply, index) {
       if (rightNode) {
         apply.push({
           from: rightNode,
+          to: a,
           operate: OPERATE.INSERT
         });
       }

@@ -59,4 +59,4 @@ function update(data) {
 }
 
 Q.jsx = Jsx;
-Q.options.directive.vd = update;
+Q.options.directives.vd = update;

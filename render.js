@@ -1,5 +1,4 @@
-var OPERATE = require('./lib/operate')
-  , singleTag = {
+var singleTag = {
     area: true,
     base: true,
     basefont: true,

@@ -82,14 +82,15 @@ define("vd", [], function() { return /******/ (function(modules) { // webpackBoo
 	      if (diff) {
 	        apply.push({
 	          diff: diff,
+	          from: a,
 	          operate: OPERATE.PROPS
 	        });
 	      }
 	      diffChildren(a, b, patches, apply, index);
 	    } else {
 	      apply.push({
-	        from: a,
-	        to: b,
+	        from: b,
+	        to: a,
 	        operate: OPERATE.REPLACE
 	      });
 	    }
@@ -100,8 +101,8 @@ define("vd", [], function() { return /******/ (function(modules) { // webpackBoo
 	        || a.text !== b.text
 	    ) {
 	      apply.push({
-	        from: a,
-	        to: b,
+	        from: b,
+	        to: a,
 	        operate: OPERATE.REPLACE
 	      });
 	    }
@@ -353,6 +354,7 @@ define("vd", [], function() { return /******/ (function(modules) { // webpackBoo
 	      if (rightNode) {
 	        apply.push({
 	          from: rightNode,
+	          to: a,
 	          operate: OPERATE.INSERT
 	        });
 	      }
