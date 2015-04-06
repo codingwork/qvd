@@ -349,6 +349,11 @@ function h(tagName, props, children) {
       key = props.key;
       delete props['key'];
     }
+    for (var i = 0, l = children.length; i < l; i++) {
+      // text
+      typeof children[i] === 'string' &&
+        (children[i] = h('text', children[i]));
+    }
     return {
       tag: tagName,
       props: props,

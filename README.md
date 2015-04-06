@@ -3,8 +3,6 @@ qvd
 
 > 简化版Virtual DOM，用于Mobile页面渲染。
 
-> 10.57 kB (源文件) → 2.6 kB (uglify) → 1.18 kB (gzip)
-
 ### Example
 
 ```javascript
@@ -37,6 +35,17 @@ h('div', { style: { border: '1px' } }, [h('p')]);
  * @param {String} text 文字节点内容
  */
 h('text', 'hello world');
+```
+
+```javascript
+/**
+ * render(vd)
+ * 得到生成的html片段
+ * @param {VD} vd
+ * @returns {String}
+ */
+// <div style="border: 1px"><p></p></div>
+render(h('div', { style: { border: '1px' } }, [h('p')]))
 ```
 
 ```javasript
