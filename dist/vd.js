@@ -366,8 +366,8 @@ define("vd", [], function() { return /******/ (function(modules) { // webpackBoo
 	  if (orderedSet.moves) {
 	    apply.push({
 	      operate: OPERATE.ORDER,
-	      from: a,
-	      to: orderedSet.moves
+	      from: orderedSet.moves,
+	      to: a
 	    });
 	  }
 

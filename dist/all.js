@@ -381,8 +381,8 @@ define("vd", [], function() { return /******/ (function(modules) { // webpackBoo
 	  if (orderedSet.moves) {
 	    apply.push({
 	      operate: OPERATE.ORDER,
-	      from: a,
-	      to: orderedSet.moves
+	      from: orderedSet.moves,
+	      to: a
 	    });
 	  }
 
@@ -604,6 +604,14 @@ define("vd", [], function() { return /******/ (function(modules) { // webpackBoo
 	  return vd.tag === 'text';
 	}
 
+	function getVDByKey(vds, key, cache) {
+	  cache = cache || {};
+	  if (cache[key]) return cache[key];
+	  for (var i = 0, l = vds.length; i < l; i++) {
+	    if (vds[i].key === key) return (cache[key] = vds[i]);
+	  }
+	}
+
 	function find(vd, vds) {
 	  var i = vds.indexOf(vd)
 	    , res, tmp;
@@ -740,6 +748,32 @@ define("vd", [], function() { return /******/ (function(modules) { // webpackBoo
 	  target.parentNode.replaceChild(node, target);
 	  item.to.ref = null;
 	  splice(item.to, a, item.from);
+	};
+
+	DEAL[OPERATE.ORDER] = function (item, root, a) {
+	  var to = item.to
+	    , from = item.from
+	    , children = to.children
+	    , parent = getRef(to, root, a)
+	    , grandpa = parent.parentNode
+	    , removes = from.removes
+	    , inserts = from.inserts
+	    , cache = {};
+
+	  removes.forEach(function (order) {
+	    var vd = getVDByKey(children, order.key, cache)
+	      , node = getRef(vd, grandpa, to);
+	    parent.removeChild(node);
+	    splice(vd, to);
+	  });
+	  inserts.forEach(function (order) {
+	    var vd = getVDByKey(children, order.key, cache)
+	      , node = getRef(vd, grandpa, to)
+	      , before = getRef(children[order.to], grandpa, to);
+	    parent.insertBefore(node, before);
+	    children.splice(order.to, 0, vd);
+	  });
+	  cache = null;
 	};
 
 	DEAL[OPERATE.PROPS] = function (item, root, a) {

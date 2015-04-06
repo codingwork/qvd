@@ -86,4 +86,23 @@ describe('render', function () {
     div = container.childNodes[0];
     div.childNodes.length.should.equal(0);
   });
+
+  it('should able order node', function () {
+    a = h('div', null, [h('p', { key: 1 }, ['hello']), h('p', { key: 2 }, ['tencent'])]);
+    var b = h('div', null, [h('p', { key: 2 }, ['tencent']), h('p', { key: 1 }, ['hello'])])
+      , patches
+      , div
+      , p;
+
+    container.innerHTML = render(a);
+    patches = diff(a, b);
+    patch(patches, container);
+    div = container.childNodes[0];
+    p = div.childNodes[0];
+    p.tagName.toLowerCase().should.equal('p');
+    p.innerText.should.equal('tencent');
+    p = div.childNodes[1];
+    p.tagName.toLowerCase().should.equal('p');
+    p.innerText.should.equal('hello');
+  });
 });

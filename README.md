@@ -53,8 +53,19 @@ render(h('div', { style: { border: '1px' } }, [h('p')]))
  * diff(a, b)
  * @param {VD} a 目前状态的a虚拟节点
  * @param {VD} b 要变成状态的b虚拟节点
+ * @returns {Array} patches
  */
 diff(a, b);
+```
+
+```javascript
+/**
+ * patch(patches, container)
+ * @param {Array} patches diff方法返回的值
+ * @param {Node} container a 虚拟节点的容器
+ */
+// 节点变换，从a到b
+patch(patches, container);
 ```
 
 ### License
