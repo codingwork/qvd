@@ -40,7 +40,7 @@ gulp.task('build', function (done) {
     .pipe(webpack(config.vd))
     .pipe(size.max())
     .pipe(gulp.dest('./dist'))
-    .pipe('end', function () {
+    .on('end', function () {
       done();
     });
 });

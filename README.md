@@ -3,7 +3,7 @@ qvd
 
 > 简化版Virtual DOM，用于Mobile页面渲染。
 
-> 8.73 kB(源文件) → 2.36 kB(uglify) → 1.09 kB (gzip)
+> 10.57 kB (源文件) → 2.6 kB (uglify) → 1.18 kB (gzip)
 
 ### Example
 
@@ -51,6 +51,7 @@ diff(a, b);
 ### License
 
 Copyright (c) 2014 Matt-Esch.
+
 Copyright (c) 2015 Daniel Yang.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
